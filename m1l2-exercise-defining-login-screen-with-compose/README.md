@@ -61,9 +61,9 @@ Below the logo image, add a text field to the login screen.
 You should use the `TextField` built-in composable.
 The value and `onValueChange` properties should be set to empty string and empty block respectively.
 
-You must define the label property for this text field. 
+You must define the `label` property for this text field. 
 The label lambda should be a composable. 
-So you should use simple Text composable and set its text to "Username".
+So you should use simple `Text` composable and set its text to "Username".
 
 ### Step 7: Define a preview function for the login screen
 To view what the login screen looks like up to this point, 

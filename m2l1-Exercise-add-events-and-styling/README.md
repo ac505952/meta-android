@@ -39,10 +39,10 @@ Inside the `Column`, define the following 3 Text composable:
 For the Image composable, load the image from the drawable using `painterResource()`. 
 Set the content description to "Greek Salad Image".
 
-### Step 5: Add an event listener to the button
+### Step 4: Add an event listener to the button
 In the upper panel of the home screen, there is the "Order Take Away" button. 
 Nothing happens when you click on it at the moment. 
-Your task in this step is to show a simple toast message which says “Order received. Thank you!” 
+Your task in this step is to show a simple toast message which says "Order received. Thank you!" 
 when this button is clicked.
 
 Open the `UpperPanel.kt` file. 

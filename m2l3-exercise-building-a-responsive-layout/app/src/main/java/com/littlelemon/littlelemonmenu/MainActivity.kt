@@ -8,7 +8,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.DrawerValue
@@ -53,39 +52,83 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MenuContent(paddingValues: PaddingValues) {
     Surface(modifier = Modifier.padding(paddingValues)) {
-        val menuPadding = 8.dp
-		Column {
-			Text(
-				"Appetizers",
-				modifier = Modifier
-					.weight(0.25f)
-					.background(Purple80)
-					.padding(menuPadding)
-					.fillMaxWidth()
-			)
-			Text(
-				"Salads",
-				modifier = Modifier
-					.weight(0.25f)
-					.padding(menuPadding)
-					.fillMaxWidth()
-			)
-			Text(
-				"Drinks",
-				modifier = Modifier
-					.weight(0.25f)
-					.background(Pink80)
-					.padding(menuPadding)
-					.fillMaxWidth()
-			)
-			Text(
-				"Mains",
-				modifier = Modifier
-					.weight(0.25f)
-					.background(PurpleGrey80)
-					.padding(menuPadding)
-					.fillMaxWidth()
-			)
+		val configuration = LocalConfiguration.current
+		val menuPadding = 8.dp
+		when (configuration.orientation) {
+			ORIENTATION_LANDSCAPE -> {
+				Column {
+					Row {
+						Text(
+							"Appetizers",
+							modifier = Modifier
+								.weight(0.25f)
+								.background(Purple80)
+								.padding(menuPadding)
+								.fillMaxWidth()
+						)
+						Text(
+							"Salads",
+							modifier = Modifier
+								.weight(0.25f)
+								.padding(menuPadding)
+								.fillMaxWidth()
+						)
+					}
+					Row {
+						Text(
+							"Drinks",
+							modifier = Modifier
+								.weight(0.25f)
+								.background(Pink80)
+								.padding(menuPadding)
+								.fillMaxWidth()
+						)
+						Text(
+							"Mains",
+							modifier = Modifier
+								.weight(0.25f)
+								.background(PurpleGrey80)
+								.padding(menuPadding)
+								.fillMaxWidth()
+						)
+					}
+				}
+			}
+			else -> {
+				Column {
+					Text(
+						"Appetizers",
+						modifier = Modifier
+							.weight(0.25f)
+							.background(Purple80)
+							.padding(menuPadding)
+							.fillMaxWidth()
+					)
+					Text(
+						"Salads",
+						modifier = Modifier
+							.weight(0.25f)
+							.padding(menuPadding)
+							.fillMaxWidth()
+					)
+					Text(
+						"Drinks",
+						modifier = Modifier
+							.weight(0.25f)
+							.background(Pink80)
+							.padding(menuPadding)
+							.fillMaxWidth()
+					)
+					Text(
+						"Mains",
+						modifier = Modifier
+							.weight(0.25f)
+							.background(PurpleGrey80)
+							.padding(menuPadding)
+							.fillMaxWidth()
+					)
+				}
+			}
 		}
     }
 }

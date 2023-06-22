@@ -2,10 +2,15 @@ package com.example.littlelemon
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSize
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -19,7 +24,13 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun ScrollableGalleryScreen() {
-
+    Column(Modifier.verticalScroll(rememberScrollState())) {
+        repeat(10) {
+            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
+                repeat(2) {GalleryCell() }
+            }
+        }
+    }
 }
 
 @Composable
@@ -44,14 +55,13 @@ fun GalleryCell() {
                     .padding(start = 4.dp)
                     .align(Alignment.TopStart)
             )
-            Text(text = "$12.99", fontWeight = FontWeight.Bold, )
             Text(
                 text = "$12.99",
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier
                     .background(Color.White)
-                    .padding(end = 4.dp)
+                    .padding(start = 4.dp, end = 4.dp)
                     .align(Alignment.BottomEnd)
             )
         }

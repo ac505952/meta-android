@@ -21,6 +21,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 private fun AppScreen() {
+    LazyGrid()
 }
 
 @Composable

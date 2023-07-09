@@ -10,8 +10,11 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.ui.Modifier
 import com.example.littlelemon.ui.theme.LittleLemonTheme
+import io.ktor.client.HttpClient
+import io.ktor.client.engine.android.Android
 
 class MainActivity : ComponentActivity() {
+    private val httpClient= HttpClient(Android)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {

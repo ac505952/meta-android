@@ -13,10 +13,17 @@ import androidx.lifecycle.MutableLiveData
 import com.example.littlelemon.ui.theme.LittleLemonTheme
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.android.Android
+import io.ktor.client.request.get
+import io.ktor.client.statement.bodyAsText
 
 class MainActivity : ComponentActivity() {
     private val httpClient= HttpClient(Android)
     private val responseLiveData= MutableLiveData<String>()
+    private suspend fun fetchContent(): String {
+        return httpClient
+            .get("https://raw.githubusercontent.com/Meta-Mobile-Developer-PC/Working-With-Data-API/main/littleLemonMenu.json")
+            .bodyAsText()
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {

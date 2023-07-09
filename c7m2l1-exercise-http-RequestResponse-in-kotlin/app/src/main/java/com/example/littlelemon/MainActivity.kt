@@ -40,6 +40,9 @@ class MainActivity : ComponentActivity() {
                             onClick = {
                                 lifecycleScope.launch {
                                     val response = fetchContent()
+                                    runOnUiThread {
+                                        responseLiveData.value= response
+                                    }
                                 }
                             }
                         ) {

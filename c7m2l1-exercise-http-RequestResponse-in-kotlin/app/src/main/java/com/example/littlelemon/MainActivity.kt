@@ -48,6 +48,7 @@ class MainActivity : ComponentActivity() {
                         ) {
                             Text(text = "Download")
                         }
+                        Text(text = responseState.toString())
                     }
                 }
             }

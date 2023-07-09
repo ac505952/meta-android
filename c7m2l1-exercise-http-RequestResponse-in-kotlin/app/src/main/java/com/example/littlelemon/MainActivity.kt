@@ -11,11 +11,13 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.lifecycleScope
 import com.example.littlelemon.ui.theme.LittleLemonTheme
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.android.Android
 import io.ktor.client.request.get
 import io.ktor.client.statement.bodyAsText
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
     private val httpClient= HttpClient(Android)
@@ -36,7 +38,9 @@ class MainActivity : ComponentActivity() {
                     Column {
                         Button(
                             onClick = {
-
+                                lifecycleScope.launch {
+                                    val response = fetchContent()
+                                }
                             }
                         ) {
                             Text(text = "Download")

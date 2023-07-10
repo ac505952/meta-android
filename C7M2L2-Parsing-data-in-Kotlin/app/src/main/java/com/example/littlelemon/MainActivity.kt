@@ -39,6 +39,13 @@ class MainActivity : ComponentActivity() {
 
     private val menuItemsLiveData = MutableLiveData<List<String>>()
 
+    private suspend fun getMenu(category: String): List<String> {
+        val response: Map<String, MenuCategory> = client
+            .get("https://raw.githubusercontent.com/Meta-Mobile-Developer-PC/Working-With-Data-API/main/littleLemonMenu.json")
+            .body()
+        return response[category]?.menu ?: listOf()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

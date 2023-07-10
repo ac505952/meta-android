@@ -47,15 +47,15 @@ class MainActivity : ComponentActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        lifecycleScope.launch {
-            val menuItem = getMenu(category = "Salads")
-
-            runOnUiThread {
-                menuItemsLiveData.value = menuItem
-            }
-        }
         super.onCreate(savedInstanceState)
 
+        lifecycleScope.launch {
+            val menuItems = getMenu("Salads")
+
+            runOnUiThread {
+                menuItemsLiveData.value = menuItems
+            }
+        }
         setContent {
             LittleLemonTheme {
                 Surface(
@@ -65,6 +65,8 @@ class MainActivity : ComponentActivity() {
                     Column(
                         modifier = Modifier.fillMaxSize()
                     ) {
+                        val items = menuItemsLiveData.observeAsState(emptyList())
+                        MenuItems(items.value)
                     }
                 }
             }

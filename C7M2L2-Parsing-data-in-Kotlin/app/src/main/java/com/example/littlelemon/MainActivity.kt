@@ -47,6 +47,13 @@ class MainActivity : ComponentActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        lifecycleScope.launch {
+            val menuItem = getMenu(category = "Salads")
+
+            runOnUiThread {
+                menuItemsLiveData.value = menuItem
+            }
+        }
         super.onCreate(savedInstanceState)
 
         setContent {

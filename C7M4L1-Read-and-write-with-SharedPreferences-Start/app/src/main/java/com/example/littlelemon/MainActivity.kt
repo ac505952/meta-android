@@ -6,7 +6,6 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Switch
 import androidx.compose.material.Text
@@ -19,16 +18,37 @@ import com.example.littlelemon.ui.theme.LittleLemonTheme
 
 class MainActivity : ComponentActivity() {
 
+    private val tipMenuLiveData = MutableLiveData<Boolean>()
+
+    private val sharedPreferences by lazy {
+        getSharedPreferences("LittleLemon", MODE_PRIVATE)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        tipMenuLiveData.value = sharedPreferences.getBoolean("Tip", false)
 
         setContent {
             LittleLemonTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                 ) {
-                    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.Center
+                    ) {
                         Text(text = "Add Tip?")
+
+                        val selected = tipMenuLiveData.observeAsState(false)
+                        Switch(checked = selected.value, onCheckedChange = {
+                            sharedPreferences.edit(commit = true) {
+                                putBoolean("Tip", it)
+                            }
+                            runOnUiThread {
+                                tipMenuLiveData.value = it
+                            }
+                        })
                     }
                 }
             }

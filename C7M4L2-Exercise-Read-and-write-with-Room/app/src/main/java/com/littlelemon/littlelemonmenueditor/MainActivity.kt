@@ -30,9 +30,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign.Companion.Right
 import androidx.compose.ui.unit.dp
+import androidx.room.Room
 import com.littlelemon.littlelemonmenueditor.ui.theme.LittleLemonMenuEditorTheme
 
 class MainActivity : ComponentActivity() {
+    private val database by lazy {
+        Room.databaseBuilder(
+            context = applicationContext,
+            klass = MenuDatabase::class.java,
+            name = "menu.db"
+        ).build()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {

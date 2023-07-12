@@ -12,9 +12,11 @@ data class MenuNetwork(
 
 @Serializable
 data class MenuItemNetwork(
-    val menu: List<MenuNetwork>
+    val menu: MenuNetwork
 ) {
     fun toMenuItemRoom() = MenuItemRoom(
-        // add code here
+        menu.id,
+        menu.title,
+        menu.price.toDouble()
     )
 }

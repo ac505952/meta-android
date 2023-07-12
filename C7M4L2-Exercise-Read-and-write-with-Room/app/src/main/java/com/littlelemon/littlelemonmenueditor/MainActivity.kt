@@ -30,8 +30,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign.Companion.Right
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.lifecycleScope
 import androidx.room.Room
 import com.littlelemon.littlelemonmenueditor.ui.theme.LittleLemonMenuEditorTheme
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.util.UUID
 
 class MainActivity : ComponentActivity() {
     private val database by lazy {
@@ -41,7 +46,6 @@ class MainActivity : ComponentActivity() {
             name = "menu.db"
         ).build()
     }
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -78,6 +82,16 @@ class MainActivity : ComponentActivity() {
                                 .fillMaxWidth()
                                 .padding(16.dp),
                             onClick = {
+                                val newMenuItem = MenuItem(
+                                    id = UUID.randomUUID().toString(),
+                                    name = dishName,
+                                    price = priceInput.toDouble()
+                                )
+                                lifecycleScope.launch {
+                                    withContext(Dispatchers.IO) {
+                                        database.menuDao().saveMenuItem(newMenuItem)
+                                    }
+                                }
                                 dishName = ""
                                 priceInput = ""
                             }

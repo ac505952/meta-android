@@ -1,6 +1,7 @@
 package com.littlelemon.littlelemonmenueditor
 
 import androidx.lifecycle.LiveData
+import androidx.room.Dao
 import androidx.room.Database
 import androidx.room.Delete
 import androidx.room.Entity
@@ -16,6 +17,7 @@ data class MenuItem(
     val price: Double
 )
 
+@Dao
 interface MenuDao {
     @Query("SELECT * FROM MenuItem")
     fun getAllMenuItems(): LiveData<List<MenuItem>>

@@ -33,7 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
 import androidx.room.Room
 import com.littlelemon.littlelemonmenueditor.ui.theme.LittleLemonMenuEditorTheme
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.UUID
@@ -88,7 +88,7 @@ class MainActivity : ComponentActivity() {
                                     price = priceInput.toDouble()
                                 )
                                 lifecycleScope.launch {
-                                    withContext(Dispatchers.IO) {
+                                    withContext(IO) {
                                         database.menuDao().saveMenuItem(newMenuItem)
                                     }
                                 }
@@ -134,7 +134,13 @@ class MainActivity : ComponentActivity() {
                                 text = "%.2f".format(menuItem.price)
                             )
                             Spacer(modifier = Modifier.width(16.dp))
-                            Button(onClick = { /*TODO*/ }) {
+                            Button(onClick = {
+                                lifecycleScope.launch {
+                                    withContext(IO) {
+                                        database.menuDao().deleteMenuItem(menuItem)
+                                    }
+                                }
+                            }) {
                                 Icon(
                                     painter = painterResource(id = R.drawable.delete_icon),
                                     contentDescription = "Delete"

@@ -76,7 +76,7 @@ class MainActivity : ComponentActivity() {
 
         lifecycleScope.launch(Dispatchers.IO) {
             if (database.menuItemDao().isEmpty()) {
-                // add code here
+                saveMenuToDatabase(fetchMenu())
             }
         }
     }

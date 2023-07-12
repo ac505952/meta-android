@@ -42,6 +42,8 @@ class MainActivity : ComponentActivity() {
         ).build()
     }
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -50,9 +52,9 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    val menuItems by remember {
-                        mutableStateOf(emptyList<MenuItem>())
-                    }
+                    val menuDao: MenuDao = database.menuDao()
+                    val menuItems by menuDao.getAllMenuItems().observeAsState(emptyList())
+
                     Column {
                         var dishName by remember { mutableStateOf("") }
                         var priceInput by remember { mutableStateOf("") }

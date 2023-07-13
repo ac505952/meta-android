@@ -49,7 +49,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             LittleLemonTheme {
                 // add databaseMenuItems code here
-                val databaseMenuItems = database.menuItemDao()
+                val databaseMenuItems by database.menuItemDao().getAll().observeAsState(emptyList())
 
                 // add orderMenuItems variable here
                 val orderMenuItems = databaseMenuItems.getAll()

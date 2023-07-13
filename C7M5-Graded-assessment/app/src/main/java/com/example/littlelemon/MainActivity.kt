@@ -33,7 +33,6 @@ import io.ktor.client.call.body
 import io.ktor.client.engine.android.Android
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.request.get
-import io.ktor.client.statement.bodyAsText
 import io.ktor.http.ContentType
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.coroutines.Dispatchers
@@ -63,7 +62,7 @@ class MainActivity : ComponentActivity() {
                 }
 
                 // add menuItems variable here
-                val menuItems = if (orderMenuItems) {
+                var menuItems = if (orderMenuItems) {
                     databaseMenuItems.sortedBy { it.title }
                 } else {
                     databaseMenuItems
@@ -99,6 +98,13 @@ class MainActivity : ComponentActivity() {
                     )
 
                     // add is not empty check here
+                    if (searchPhrase.isNotEmpty()) {
+                        menuItems = menuItems.filter {
+                            it.title.lowercase().contains(searchPhrase.lowercase())
+                        }
+                    }
+
+                    MenuItemsList(items = menuItems)
                 }
             }
         }

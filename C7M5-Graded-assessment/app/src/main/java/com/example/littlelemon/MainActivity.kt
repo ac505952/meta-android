@@ -82,7 +82,10 @@ class MainActivity : ComponentActivity() {
     }
 
     private suspend fun fetchMenu(): List<MenuItemNetwork> {
-        return httpClient.get("https://raw.githubusercontent.com/Meta-Mobile-Developer-PC/Working-With-Data-API/main/littleLemonSimpleMenu.json").body()
+        val response = httpClient
+            .get("https://raw.githubusercontent.com/Meta-Mobile-Developer-PC/Working-With-Data-API/main/littleLemonSimpleMenu.json")
+            .body<MenuNetwork>()
+        return response.menu
     }
 
     private fun saveMenuToDatabase(menuItemsNetwork: List<MenuItemNetwork>) {

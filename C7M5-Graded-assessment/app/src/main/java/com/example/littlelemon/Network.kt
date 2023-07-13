@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class MenuNetwork(
     @SerialName("menu")
-    val menu: List<MenuNetwork>
+    val menu: List<MenuItemNetwork>
 )
 
 @Serializable

@@ -11,9 +11,15 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.Button
+import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -57,7 +63,11 @@ class MainActivity : ComponentActivity() {
                 }
 
                 // add menuItems variable here
-                val menuItems = orderMenuItems.observeAsState(emptyList())
+                val menuItems = if (orderMenuItems) {
+                    databaseMenuItems.sortedBy { it.title }
+                } else {
+                    databaseMenuItems
+                }
 
                 Column(
                     modifier = Modifier
@@ -75,8 +85,18 @@ class MainActivity : ComponentActivity() {
                     }
 
                     // add searchPhrase variable here
+                    var searchPhrase by rememberSaveable {
+                        mutableStateOf("")
+                    }
 
                     // Add OutlinedTextField
+                    OutlinedTextField(
+                        value = searchPhrase,
+                        onValueChange = { searchPhrase = it },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(start = 50.dp, end = 50.dp)
+                    )
 
                     // add is not empty check here
                 }

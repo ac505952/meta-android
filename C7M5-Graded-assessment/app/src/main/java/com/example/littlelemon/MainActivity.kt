@@ -52,7 +52,9 @@ class MainActivity : ComponentActivity() {
                 val databaseMenuItems by database.menuItemDao().getAll().observeAsState(emptyList())
 
                 // add orderMenuItems variable here
-                val orderMenuItems = databaseMenuItems.getAll()
+                var orderMenuItems by rememberSaveable {
+                    mutableStateOf(false)
+                }
 
                 // add menuItems variable here
                 val menuItems = orderMenuItems.observeAsState(emptyList())
@@ -68,6 +70,9 @@ class MainActivity : ComponentActivity() {
                     )
 
                     // add Button code here
+                    Button(onClick = { orderMenuItems = true }) {
+                        Text(text = "Tap to Order By Name")
+                    }
 
                     // add searchPhrase variable here
 

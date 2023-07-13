@@ -21,8 +21,8 @@ data class MenuItemNetwork(
     val price: Double,
 ) {
     fun toMenuItemRoom() = MenuItemRoom(
-        menu.id,
-        menu.title,
-        menu.price.toDouble()
+        id,
+        title,
+        price
     )
 }
